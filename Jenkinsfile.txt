@@ -29,7 +29,7 @@ pipeline {
                     emailext(
                         attachLog: true,
                         subject: "Unit and Integration Tests Stage Status",
-                        body: "Unit and Integration Tests Stage Log Attached",
+                        body: "Unit and Integration Tests Stage Completed and Log Attached",
                         to: EMAIL_RECIPIENT
                     )
                 }
@@ -55,9 +55,12 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "$EMAIL_RECIPIENT",
-                    subject: "Security Scan Stage Status",
-                    body: "Security Scan Stage Log Attached"
+                    emailext(
+                        attachLog: true,
+                        subject: "Security Scan Stage Status",
+                        body: "Security Scan Stage Completed and Log Attached",
+                        to: EMAIL_RECIPIENT
+                    )
                 }
             }
         }
@@ -85,11 +88,14 @@ pipeline {
 
     }
 post {
-        always {
-            mail to: EMAIL_RECIPIENT,
-             subject: "Pipeline status",
-             body: "Pipeline completed"
-        }
-    }
+                always {
+                    emailext(
+                        attachLog: true,
+                        subject: "Pipeline status",
+                        body: "Pipeline completed and Log Attached",
+                        to: EMAIL_RECIPIENT
+                    )
+                }
+            }
     
 }
