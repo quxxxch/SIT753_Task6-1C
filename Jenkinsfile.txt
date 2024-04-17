@@ -26,16 +26,16 @@ pipeline {
             }
             post {
                 success {
-script {
-currentBuild.result = 'SUCCESS'
-}
-                
+                    script {
+                    currentBuild.result = 'SUCCESS'
                 }
-failure {
-script {
-currentBuild.result = 'FAILURE'
-}
-}
+                                
+                }
+                failure {
+                    script {
+                        currentBuild.result = 'FAILURE'
+                    }
+                }
                 always {
                     emailext(
                         attachLog: true,
@@ -65,11 +65,22 @@ currentBuild.result = 'FAILURE'
                 // sh 'mvn org.owasp:dependency-check-maven:check'
             }
             post {
+                success {
+                    script {
+                    currentBuild.result = 'SUCCESS'
+                }
+                                
+                }
+                failure {
+                    script {
+                        currentBuild.result = 'FAILURE'
+                    }
+                }
                 always {
                     emailext(
                         attachLog: true,
                         subject: "Security Scan Stage Status",
-                        body: "Security Scan Stage Completed and Log Attached",
+                        body: "Security Scan Stage Status: $currentBuild.result ; and Log Attached",
                         to: EMAIL_RECIPIENT
                     )
                 }
@@ -99,11 +110,22 @@ currentBuild.result = 'FAILURE'
 
     }
 post {
+success {
+                    script {
+                    currentBuild.result = 'SUCCESS'
+                }
+                                
+                }
+                failure {
+                    script {
+                        currentBuild.result = 'FAILURE'
+                    }
+                }
                 always {
                     emailext(
                         attachLog: true,
                         subject: "Pipeline status",
-                        body: "Pipeline completed and Log Attached",
+                        body: "Pipeline Status: $currentBuild.result ; and Log Attached",
                         to: EMAIL_RECIPIENT
                     )
                 }
