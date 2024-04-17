@@ -12,7 +12,7 @@ pipeline {
             steps {
                 echo "fetch the source code from the directory path: $DIRECTORY_PATH"
                 echo "This sh step 'mvn -B -DskipTests clean package' runs the Maven command to cleanly build your Java application without running any tests."
-                sh 'mvn -B -DskipTests clean package'
+               // sh 'mvn -B -DskipTests clean package'
             }
         }
         
