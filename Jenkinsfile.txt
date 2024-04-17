@@ -27,13 +27,13 @@ pipeline {
             post {
                 success {
 script {
-                stage_status = "Success"
+currentBuild.result = 'SUCCESS'
 }
                 
                 }
 failure {
 script {
-                stage_status = "Failed"
+currentBuild.result = 'FAILURE'
 }
 }
                 always {
