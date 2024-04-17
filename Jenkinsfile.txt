@@ -29,7 +29,7 @@ pipeline {
                     mail to: "$EMAIL_RECIPIENT",
                     subject: "Unit and Integration Tests Stage Status",
                     body: "Unit and Integration Tests Stage Log Attached",
-                    attachLog: true
+                    emailext attachLog: true
                 }
             }
         }
