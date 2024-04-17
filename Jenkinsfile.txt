@@ -36,30 +36,61 @@ pipeline {
             }
         }
 
-        stage('Code Quality Check') {
+        stage('Code Analysis') {
             steps {
                 echo "check the quality of the code"
+                echo 'Analyzing code...'
+
+                echo "Run SonarQube Code Analysis in Jenkins with Maven Project: 'mvn sonar:sonar'"
+
+                // sh 'mvn sonar:sonar'
             }
         }
 
-        stage('Deploy') {
+        stage('Security Scan') {
             steps {
-                echo "deploy the application to a testing environment specified by the environment variable: $TESTING_ENVIRONMENT"
+                echo 'Perform security scan on the code using a tool to identify any vulnerabilities.'
+
+                // sh 'mvn org.owasp:dependency-check-maven:check'
+            }
+            post {
+                always {
+                    mail to: "$EMAIL_RECIPIENT",
+                    subject: "Security Scan Stage Status",
+                    body: "Security Scan Stage Log Attached",
+                    
+                }
             }
         }
 
-        stage('Approval') {
+        stage('Deploy to Staging ') {
             steps {
-                sleep 10
+                echo 'Deploy the application to a staging server'
+
             }
         }
 
-        stage('Deploy to Production') {
+        stage('Integration Tests on Staging') {
+            steps {
+               echo 'Running integration tests on staging...'
+                // sh 'mvn verify -Pintegration-tests'
+            }
+        }
+
+         stage('Deploy to Production') {
             steps {
                 echo "deploy the application to the production environment: $PRODUCTION_ENVIRONMENT"
+
             }
         }
 
+    }
+post {
+        always {
+            mail to: EMAIL_RECIPIENT,
+             subject: "Pipeline status",
+             body: "Pipeline completed"
+        }
     }
     
 }
