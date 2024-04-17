@@ -40,7 +40,7 @@ currentBuild.result = 'FAILURE'
                     emailext(
                         attachLog: true,
                         subject: "Unit and Integration Tests Stage Status",
-                        body: "Unit and Integration Tests Stage Status: $stage_status; and Log Attached",
+                        body: "Unit and Integration Tests Stage Status: $currentBuild.result ; and Log Attached",
                         to: EMAIL_RECIPIENT
                     )
                 }
