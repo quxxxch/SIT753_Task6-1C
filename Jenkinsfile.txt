@@ -16,10 +16,21 @@ pipeline {
             }
         }
         
-        stage('Test') {
+        stage('Unit and Integration Tests') {
             steps {
-                echo "unit tests"
-                echo "integration tests"
+                echo "run unit tests to ensure the code functions as expected"
+                echo "run integration tests to ensure the different components of the application work together as expected"
+                echo "You can run mvn test if you want to run Maven phases up to and including test, or mvn clean verify if you want to rebuild and test your project"
+                echo "This sh step 'mvn test' executes the Maven command to run the unit test. This command also generates a JUnit XML report, which is saved to the target/surefire-reports directory within the /var/jenkins_home/workspace/simple-java-maven-app directory in the Jenkins container."
+                // sh 'mvn test'
+            }
+            post {
+                always {
+                    mail to: "$EMAIL_RECIPIENT",
+                    subject: "Unit and Integration Tests Stage Status",
+                    body: "Unit and Integration Tests Stage Log Attached",
+                    
+                }
             }
         }
 
