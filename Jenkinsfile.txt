@@ -57,8 +57,7 @@ pipeline {
                 always {
                     mail to: "$EMAIL_RECIPIENT",
                     subject: "Security Scan Stage Status",
-                    body: "Security Scan Stage Log Attached",
-                    
+                    body: "Security Scan Stage Log Attached"
                 }
             }
         }
