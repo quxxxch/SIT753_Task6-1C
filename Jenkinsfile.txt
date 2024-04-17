@@ -25,11 +25,18 @@ pipeline {
                 // sh 'mvn test'
             }
             post {
+                success {
+                stage_status = "Success"
+                
+                }
+failure {
+stage_status = "Failed"
+}
                 always {
                     emailext(
                         attachLog: true,
                         subject: "Unit and Integration Tests Stage Status",
-                        body: "Unit and Integration Tests Stage Completed and Log Attached",
+                        body: "Unit and Integration Tests Stage Status: $stage_status; and Log Attached",
                         to: EMAIL_RECIPIENT
                     )
                 }
