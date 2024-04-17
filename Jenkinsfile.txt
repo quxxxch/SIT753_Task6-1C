@@ -26,11 +26,15 @@ pipeline {
             }
             post {
                 success {
+script {
                 stage_status = "Success"
+}
                 
                 }
 failure {
-stage_status = "Failed"
+script {
+                stage_status = "Failed"
+}
 }
                 always {
                     emailext(
